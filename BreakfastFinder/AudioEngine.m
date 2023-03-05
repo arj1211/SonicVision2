@@ -90,18 +90,32 @@
     
     // 6. Load audio file
     NSURL *audioFileURL = [[NSBundle mainBundle] URLForResource:@"mixkit-clown-horn-at-circus-715" withExtension:@"wav"];
+//    self.hornSound = [[AVAudioFile alloc] initForReading:audioFileURL error:nil];
+//
+//    audioFileURL = [[NSBundle mainBundle] URLForResource:@"person" withExtension:@"wav"];
+//    self.personSound = [[AVAudioFile alloc] initForReading:audioFileURL error:nil];
+//
+//    audioFileURL = [[NSBundle mainBundle] URLForResource:@"bottle" withExtension:@"wav"];
+//    self.bottleSound = [[AVAudioFile alloc] initForReading:audioFileURL error:nil];
+//
+//    audioFileURL = [[NSBundle mainBundle] URLForResource:@"laptop" withExtension:@"wav"];
+//    self.laptopSound = [[AVAudioFile alloc] initForReading:audioFileURL error:nil];
+//
+//    audioFileURL = [[NSBundle mainBundle] URLForResource:@"chair" withExtension:@"wav"];
+//    self.chairSound = [[AVAudioFile alloc] initForReading:audioFileURL error:nil];
+    
     self.hornSound = [[AVAudioFile alloc] initForReading:audioFileURL error:nil];
     
-    audioFileURL = [[NSBundle mainBundle] URLForResource:@"person" withExtension:@"wav"];
+    audioFileURL = [[NSBundle mainBundle] URLForResource:@"person-same-vol" withExtension:@"wav"];
     self.personSound = [[AVAudioFile alloc] initForReading:audioFileURL error:nil];
     
-    audioFileURL = [[NSBundle mainBundle] URLForResource:@"bottle" withExtension:@"wav"];
+    audioFileURL = [[NSBundle mainBundle] URLForResource:@"bottole-same-vol" withExtension:@"wav"];
     self.bottleSound = [[AVAudioFile alloc] initForReading:audioFileURL error:nil];
     
-    audioFileURL = [[NSBundle mainBundle] URLForResource:@"laptop" withExtension:@"wav"];
+    audioFileURL = [[NSBundle mainBundle] URLForResource:@"laptop-same-vol" withExtension:@"wav"];
     self.laptopSound = [[AVAudioFile alloc] initForReading:audioFileURL error:nil];
 
-    audioFileURL = [[NSBundle mainBundle] URLForResource:@"chair" withExtension:@"wav"];
+    audioFileURL = [[NSBundle mainBundle] URLForResource:@"chair-same-vol" withExtension:@"wav"];
     self.chairSound = [[AVAudioFile alloc] initForReading:audioFileURL error:nil];
 
     

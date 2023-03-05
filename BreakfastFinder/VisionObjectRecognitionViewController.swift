@@ -161,7 +161,7 @@ class VisionObjectRecognitionViewController: ViewController {
             
             let width = bufferSize.width
             let height = bufferSize.height
-            let x = objectObservation.boundingBox.midX
+            let x = objectObservation.boundingBox.midX * 2 - 1.0
             let y = objectObservation.boundingBox.midY
             let normalizedX: Int = Int(x/width * 128)
             let normalizedY: Int = Int(y/height * 160)
@@ -169,16 +169,18 @@ class VisionObjectRecognitionViewController: ViewController {
             guard let depth = drawingView.heatmap?[normalizedY][normalizedX] else {
                 continue
             }
-            if (topLabelObservation.identifier == "bottle") {
+            if (topLabelObservation.identifier == "chair") {
                 print("depth: \(depth)")
-                print("midX: \(objectObservation.boundingBox.midX)")
-                print("midY: \(objectObservation.boundingBox.midY)")
+                print("midX: \(x)")
+                print("midY: \(y)")
             }
+            
+            let areaOfBox = 
             
             let objectSound = audioIDObjectMapping[topLabelObservation.identifier, default: 1]
             
-            let newObjectCoords = [Float32(objectObservation.boundingBox.midX),
-             Float32(objectObservation.boundingBox.midY),
+            let newObjectCoords = [Float32(x),
+             Float32(y),
              Float32(depth),
              Float32(objectSound)]
 
