@@ -169,19 +169,21 @@ class VisionObjectRecognitionViewController: ViewController {
             guard let depth = drawingView.heatmap?[normalizedY][normalizedX] else {
                 continue
             }
+            
+            let areaOfBox = objectObservation.boundingBox.height * objectObservation.boundingBox.width
+                        
             if (topLabelObservation.identifier == "chair") {
                 print("depth: \(depth)")
                 print("midX: \(x)")
                 print("midY: \(y)")
+                print("area of box: \(areaOfBox)")
             }
-            
-            let areaOfBox = 
             
             let objectSound = audioIDObjectMapping[topLabelObservation.identifier, default: 1]
             
             let newObjectCoords = [Float32(x),
              Float32(y),
-             Float32(depth),
+             Float32(areaOfBox/0.2),
              Float32(objectSound)]
 
             VisionObjectRecognitionViewController.latestCoordinates.append(newObjectCoords)
