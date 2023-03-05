@@ -1,32 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14256" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14243"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Vision Object Recognition View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="VisionObjectRecognitionViewController" customModule="VisionCamObjectRecognition_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="VisionObjectRecognitionViewController" customModule="BreakfastFinder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="df9-3J-6We"/>
+                        <viewControllerLayoutGuide type="bottom" id="tP2-v6-g3K"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="CTO-i3-SOM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c6e-WT-T2Y">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="332"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="375" id="Mtz-OH-vfh"/>
+                                    <constraint firstAttribute="height" constant="332" id="y9e-JB-HmJ"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fjx-43-kMo">
+                                <rect key="frame" x="0.0" y="332" width="375" height="335"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <rect key="contentStretch" x="0.0" y="0.0" width="1" height="0.5"/>
+                        <constraints>
+                            <constraint firstItem="fjx-43-kMo" firstAttribute="top" secondItem="c6e-WT-T2Y" secondAttribute="bottom" id="5ZX-eJ-eEJ"/>
+                            <constraint firstAttribute="bottom" secondItem="c6e-WT-T2Y" secondAttribute="bottom" constant="335" id="ADM-dn-jQE"/>
+                            <constraint firstAttribute="trailing" secondItem="fjx-43-kMo" secondAttribute="trailing" id="DnE-kK-ybv"/>
+                            <constraint firstItem="c6e-WT-T2Y" firstAttribute="top" secondItem="df9-3J-6We" secondAttribute="bottom" id="Dtz-wx-b0I"/>
+                            <constraint firstItem="fjx-43-kMo" firstAttribute="top" secondItem="c6e-WT-T2Y" secondAttribute="bottom" id="Gfp-JY-4fz"/>
+                            <constraint firstItem="fjx-43-kMo" firstAttribute="leading" secondItem="CTO-i3-SOM" secondAttribute="leading" id="Prz-As-lek"/>
+                            <constraint firstItem="c6e-WT-T2Y" firstAttribute="trailing" secondItem="fjx-43-kMo" secondAttribute="trailing" id="bIO-7h-AMQ"/>
+                            <constraint firstItem="tP2-v6-g3K" firstAttribute="top" secondItem="fjx-43-kMo" secondAttribute="bottom" id="d8X-1q-5Gs"/>
+                            <constraint firstItem="c6e-WT-T2Y" firstAttribute="leading" secondItem="CTO-i3-SOM" secondAttribute="leading" id="lwz-TJ-Jck"/>
+                            <constraint firstItem="fjx-43-kMo" firstAttribute="top" secondItem="c6e-WT-T2Y" secondAttribute="bottom" id="z6i-Ry-xxv"/>
+                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="previewView" destination="8bC-Xf-vdC" id="KdU-3x-Jsv"/>
+                        <outlet property="fcrnView" destination="fjx-43-kMo" id="wk0-Li-VUD"/>
+                        <outlet property="previewView" destination="CTO-i3-SOM" id="yHp-HC-7lo"/>
+                        <outlet property="yoloView" destination="c6e-WT-T2Y" id="ORl-v8-glF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="56.799999999999997" y="-0.44977511244377816"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

@@ -13,11 +13,16 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     var bufferSize: CGSize = .zero
     var rootLayer: CALayer! = nil
+    var yoloLayer: CALayer! = nil
+    var fcrnLayer: CALayer! = nil
     
     @IBOutlet weak private var previewView: UIView!
     private let session = AVCaptureSession()
     private var previewLayer: AVCaptureVideoPreviewLayer! = nil
     private let videoDataOutput = AVCaptureVideoDataOutput()
+    
+    @IBOutlet weak var yoloView: UIView!
+    @IBOutlet weak var fcrnView: UIView!
     
     private let videoDataOutputQueue = DispatchQueue(label: "VideoDataOutput", qos: .userInitiated, attributes: [], autoreleaseFrequency: .workItem)
     
@@ -88,9 +93,10 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         session.commitConfiguration()
         previewLayer = AVCaptureVideoPreviewLayer(session: session)
         previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        rootLayer = previewView.layer
-        previewLayer.frame = rootLayer.bounds
-        rootLayer.addSublayer(previewLayer)
+        
+        yoloLayer = yoloView.layer
+        previewLayer.frame = yoloLayer.bounds
+        yoloLayer.addSublayer(previewLayer)
     }
     
     func startCaptureSession() {

@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		6E0B61E929B401D80079FE56 /* ObjectDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 6E0B61E829B401D80079FE56 /* ObjectDetector.mlmodel */; };
 		6E0B61EB29B40FBD0079FE56 /* FCRN.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 6E0B61EA29B40FBD0079FE56 /* FCRN.mlmodel */; };
+		BDC12A0529B4F8EC00BC7E24 /* AudioEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = BDC12A0429B4F8EC00BC7E24 /* AudioEngine.m */; };
+		BDC12A0829B4FB0E00BC7E24 /* mixkit-clown-horn-at-circus-715.wav in Resources */ = {isa = PBXBuildFile; fileRef = BDC12A0729B4FB0E00BC7E24 /* mixkit-clown-horn-at-circus-715.wav */; };
+		BDC12A0A29B50F5A00BC7E24 /* person.wav in Resources */ = {isa = PBXBuildFile; fileRef = BDC12A0929B50F5A00BC7E24 /* person.wav */; };
+		BDC12A0E29B5142D00BC7E24 /* chair.wav in Resources */ = {isa = PBXBuildFile; fileRef = BDC12A0B29B5142D00BC7E24 /* chair.wav */; };
+		BDC12A0F29B5142D00BC7E24 /* bottle.wav in Resources */ = {isa = PBXBuildFile; fileRef = BDC12A0C29B5142D00BC7E24 /* bottle.wav */; };
+		BDC12A1029B5142D00BC7E24 /* laptop.wav in Resources */ = {isa = PBXBuildFile; fileRef = BDC12A0D29B5142D00BC7E24 /* laptop.wav */; };
 		FA4750CA20BF3F48003E19ED /* Breakfast Finder Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = FA4750C920BF3F48003E19ED /* Breakfast Finder Logo.png */; };
 		FAB417F62099308400494E9C /* VisionObjectRecognitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB417F52099308400494E9C /* VisionObjectRecognitionViewController.swift */; };
 		FAD5009F1ED668B60074D713 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD5009E1ED668B60074D713 /* AppDelegate.swift */; };
@@ -22,6 +28,14 @@
 		6E0B61E829B401D80079FE56 /* ObjectDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = ObjectDetector.mlmodel; sourceTree = "<group>"; };
 		6E0B61EA29B40FBD0079FE56 /* FCRN.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = FCRN.mlmodel; sourceTree = "<group>"; };
 		7984D3D3A63BDFC4A07FEF8F /* SampleCode.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
+		BDC12A0329B4F8EC00BC7E24 /* BreakfastFinder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BreakfastFinder-Bridging-Header.h"; sourceTree = "<group>"; };
+		BDC12A0429B4F8EC00BC7E24 /* AudioEngine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioEngine.m; sourceTree = "<group>"; };
+		BDC12A0629B4F92B00BC7E24 /* AudioManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioManager.h; sourceTree = "<group>"; };
+		BDC12A0729B4FB0E00BC7E24 /* mixkit-clown-horn-at-circus-715.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "mixkit-clown-horn-at-circus-715.wav"; sourceTree = "<group>"; };
+		BDC12A0929B50F5A00BC7E24 /* person.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = person.wav; sourceTree = "<group>"; };
+		BDC12A0B29B5142D00BC7E24 /* chair.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = chair.wav; sourceTree = "<group>"; };
+		BDC12A0C29B5142D00BC7E24 /* bottle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bottle.wav; sourceTree = "<group>"; };
+		BDC12A0D29B5142D00BC7E24 /* laptop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = laptop.wav; sourceTree = "<group>"; };
 		C2A2AB60C2A2AB2000000001 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E3CB966204CD821C6969C2A3 /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		FA4750C920BF3F48003E19ED /* Breakfast Finder Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Breakfast Finder Logo.png"; sourceTree = SOURCE_ROOT; };
@@ -86,7 +100,14 @@
 			children = (
 				FAD5009E1ED668B60074D713 /* AppDelegate.swift */,
 				FAD500A01ED668B60074D713 /* ViewController.swift */,
+				BDC12A0429B4F8EC00BC7E24 /* AudioEngine.m */,
+				BDC12A0629B4F92B00BC7E24 /* AudioManager.h */,
+				BDC12A0C29B5142D00BC7E24 /* bottle.wav */,
+				BDC12A0B29B5142D00BC7E24 /* chair.wav */,
+				BDC12A0D29B5142D00BC7E24 /* laptop.wav */,
 				FAB417F52099308400494E9C /* VisionObjectRecognitionViewController.swift */,
+				BDC12A0729B4FB0E00BC7E24 /* mixkit-clown-horn-at-circus-715.wav */,
+				BDC12A0929B50F5A00BC7E24 /* person.wav */,
 				FAD500A21ED668B60074D713 /* Main.storyboard */,
 				FAD500A51ED668B60074D713 /* Assets.xcassets */,
 				6E0B61EA29B40FBD0079FE56 /* FCRN.mlmodel */,
@@ -94,6 +115,7 @@
 				6E0B61E829B401D80079FE56 /* ObjectDetector.mlmodel */,
 				FA4750C920BF3F48003E19ED /* Breakfast Finder Logo.png */,
 				FAD500AA1ED668B60074D713 /* Info.plist */,
+				BDC12A0329B4F8EC00BC7E24 /* BreakfastFinder-Bridging-Header.h */,
 			);
 			path = BreakfastFinder;
 			sourceTree = "<group>";
@@ -130,7 +152,7 @@
 				TargetAttributes = {
 					FAD5009A1ED668B60074D713 = {
 						CreatedOnToolsVersion = 9.0;
-						LastSwiftMigration = 1140;
+						LastSwiftMigration = 1420;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -158,6 +180,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDC12A0F29B5142D00BC7E24 /* bottle.wav in Resources */,
+				BDC12A0E29B5142D00BC7E24 /* chair.wav in Resources */,
+				BDC12A1029B5142D00BC7E24 /* laptop.wav in Resources */,
+				BDC12A0829B4FB0E00BC7E24 /* mixkit-clown-horn-at-circus-715.wav in Resources */,
+				BDC12A0A29B50F5A00BC7E24 /* person.wav in Resources */,
 				FA4750CA20BF3F48003E19ED /* Breakfast Finder Logo.png in Resources */,
 				FAD500A91ED668B60074D713 /* LaunchScreen.storyboard in Resources */,
 				FAD500A61ED668B60074D713 /* Assets.xcassets in Resources */,
@@ -172,6 +199,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDC12A0529B4F8EC00BC7E24 /* AudioEngine.m in Sources */,
 				6E0B61E929B401D80079FE56 /* ObjectDetector.mlmodel in Sources */,
 				6E0B61EB29B40FBD0079FE56 /* FCRN.mlmodel in Sources */,
 				FAB417F62099308400494E9C /* VisionObjectRecognitionViewController.swift in Sources */,
@@ -324,6 +352,7 @@
 			baseConfigurationReference = 7984D3D3A63BDFC4A07FEF8F /* SampleCode.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RP57F6D6D2;
@@ -332,6 +361,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.BreakfastFinder${SAMPLE_CODE_DISAMBIGUATOR}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "BreakfastFinder/BreakfastFinder-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -342,6 +373,7 @@
 			baseConfigurationReference = 7984D3D3A63BDFC4A07FEF8F /* SampleCode.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RP57F6D6D2;
@@ -350,6 +382,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.BreakfastFinder${SAMPLE_CODE_DISAMBIGUATOR}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "BreakfastFinder/BreakfastFinder-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

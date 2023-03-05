@@ -9,13 +9,87 @@ import UIKit
 import AVFoundation
 import Vision
 
+let audioIDObjectMapping: [String:Int] = [
+    "person" : 2,
+    "bottle" : 3,
+    "chair"  : 4,
+    "laptop" : 5,
+]
+
+class DrawingView: UIView {
+    
+    var heatmap: Array<Array<Double>>? = nil {
+        didSet {
+            DispatchQueue.main.async {
+                self.setNeedsDisplay()
+            }
+        }
+    }
+
+    override func draw(_ rect: CGRect) {
+    
+        if let ctx = UIGraphicsGetCurrentContext() {
+            
+            ctx.clear(rect);
+            
+            guard let heatmap = self.heatmap else { return }
+            
+            let size = self.bounds.size
+            let heatmap_w = heatmap.count
+            let heatmap_h = heatmap.first?.count ?? 0
+            let w = size.width / CGFloat(heatmap_w)
+            let h = size.height / CGFloat(heatmap_h)
+            
+            for j in 0..<heatmap_h {
+                for i in 0..<heatmap_w {
+                    let value = heatmap[i][j]
+                    var alpha: CGFloat = CGFloat(value)
+                    if alpha > 1 {
+                        alpha = 1
+                    } else if alpha < 0 {
+                        alpha = 0
+                    }
+                    
+                    let rect: CGRect = CGRect(x: CGFloat(i) * w, y: CGFloat(j) * h, width: w, height: h)
+                    
+                    // gray
+                    let color: UIColor = UIColor(white: 1-alpha, alpha: 1)
+                    
+                    let bpath: UIBezierPath = UIBezierPath(rect: rect)
+                    
+                    color.set()
+                    bpath.fill()
+                }
+            }
+        }
+    }
+}
+
+
 class VisionObjectRecognitionViewController: ViewController {
     
     private var detectionOverlay: CALayer! = nil
+    private var depthOverlay: CALayer! = nil
+    let audioEngine = AudioEngine()
+    var timer: Timer?
+    
+    static var latestCoordinates: [[Float32]] = []
+
+    var drawingView: DrawingView = {
+       let map = DrawingView()
+        map.contentMode = .scaleToFill
+        map.backgroundColor = .blue
+        map.autoresizesSubviews = true
+        map.clearsContextBeforeDrawing = true
+        map.isOpaque = true
+        map.translatesAutoresizingMaskIntoConstraints = false
+        return map
+    }()
+
     
     // Vision parts
     private var requests = [VNRequest]()
-    
+        
     @discardableResult
     func setupVision() -> NSError? {
         // Setup Vision parts
@@ -31,7 +105,7 @@ class VisionObjectRecognitionViewController: ViewController {
 
         do {
             let visionModel = try VNCoreMLModel(for: MLModel(contentsOf: modelURL))
-            let depthModel = try VNCoreMLModel(for: MLModel(contentsOf: depthModelURL))
+            let depthModel = try! VNCoreMLModel(for: MLModel(contentsOf: depthModelURL))
 
             let objectRecognition = VNCoreMLRequest(model: visionModel, completionHandler: { (request, error) in
                 DispatchQueue.main.async(execute: {
@@ -43,15 +117,23 @@ class VisionObjectRecognitionViewController: ViewController {
             })
             
             let depthRecognition = VNCoreMLRequest(model: depthModel, completionHandler: { (request, error) in
-                DispatchQueue.main.async(execute: {
                     // perform all the UI updates on the main queue
-                    if let results = request.results {
-                        print("DEPTH RESULTS")
-//                        self.drawVisionRequestResults(results)
+                    if let results = request.results as? [VNCoreMLFeatureValueObservation],
+                        let heatmap = results.first?.featureValue.multiArrayValue {
+
+                        let (convertedHeatmap, convertedHeatmapInt) = self.convertTo2DArray(from: heatmap)
+                        DispatchQueue.main.async { [weak self] in
+                            self?.drawingView.heatmap = convertedHeatmap
+                            let average = Float32(convertedHeatmapInt.joined().reduce(0, +))/Float32(20480)
+//                            print(average)
+                        }
+                    } else {
+                        fatalError("Model failed to process image")
                     }
-                })
             })
             
+            depthRecognition.imageCropAndScaleOption = .scaleFill
+                        
             self.requests = [objectRecognition, depthRecognition]
         } catch let error as NSError {
             print("Model loading went wrong: \(error)")
@@ -64,6 +146,8 @@ class VisionObjectRecognitionViewController: ViewController {
         CATransaction.begin()
         CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
         detectionOverlay.sublayers = nil // remove all the old recognized objects
+        
+        VisionObjectRecognitionViewController.latestCoordinates = []
         for observation in results where observation is VNRecognizedObjectObservation {
             guard let objectObservation = observation as? VNRecognizedObjectObservation else {
                 continue
@@ -71,13 +155,38 @@ class VisionObjectRecognitionViewController: ViewController {
             // Select only the label with the highest confidence.
             let topLabelObservation = objectObservation.labels[0]
             
-            var newBoundingBox = CGRect(x: objectObservation.boundingBox.midY, y: objectObservation.boundingBox.midX, width: objectObservation.boundingBox.width, height: objectObservation.boundingBox.height)
+            var newBoundingBox = CGRect(x: objectObservation.boundingBox.midX, y: objectObservation.boundingBox.midY, width: objectObservation.boundingBox.width, height: objectObservation.boundingBox.height)
             
-            let objectBounds = VNImageRectForNormalizedRect(newBoundingBox, Int(bufferSize.width), Int(bufferSize.height))
+            let objectBounds = VNImageRectForNormalizedRect(objectObservation.boundingBox, Int(bufferSize.width), Int(bufferSize.height))
+            
+            let width = bufferSize.width
+            let height = bufferSize.height
+            let x = objectObservation.boundingBox.midX
+            let y = objectObservation.boundingBox.midY
+            let normalizedX: Int = Int(x/width * 128)
+            let normalizedY: Int = Int(y/height * 160)
+            
+            guard let depth = drawingView.heatmap?[normalizedY][normalizedX] else {
+                continue
+            }
+            if (topLabelObservation.identifier == "bottle") {
+                print("depth: \(depth)")
+                print("midX: \(objectObservation.boundingBox.midX)")
+                print("midY: \(objectObservation.boundingBox.midY)")
+            }
+            
+            let objectSound = audioIDObjectMapping[topLabelObservation.identifier, default: 1]
+            
+            let newObjectCoords = [Float32(objectObservation.boundingBox.midX),
+             Float32(objectObservation.boundingBox.midY),
+             Float32(depth),
+             Float32(objectSound)]
 
-            print("Detected Object: \(topLabelObservation.identifier)")
-            print("midX: \(objectObservation.boundingBox.midX)")
-            print("midY: \(objectObservation.boundingBox.midY)")
+            VisionObjectRecognitionViewController.latestCoordinates.append(newObjectCoords)
+            
+//            print("Detected Object: \(topLabelObservation.identifier)")
+//            print("midX: \(objectObservation.boundingBox.midX)")
+//            print("midY: \(objectObservation.boundingBox.midY)")
             
             let shapeLayer = self.createRoundedRectLayerWithBounds(objectBounds)
             
@@ -106,6 +215,24 @@ class VisionObjectRecognitionViewController: ViewController {
         }
     }
     
+    func setupTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(timerFired), userInfo: nil, repeats: true)
+    }
+    
+    @objc func timerFired() {
+        // This method will be called every 2 seconds
+        for (index, object) in VisionObjectRecognitionViewController.latestCoordinates.enumerated() {
+            audioEngine.addNodeAndPlay(with: VisionObjectRecognitionViewController.latestCoordinates[index][0], y: VisionObjectRecognitionViewController.latestCoordinates[index][1], z: VisionObjectRecognitionViewController.latestCoordinates[index][2], distance: VisionObjectRecognitionViewController.latestCoordinates[index][2], type: Int(VisionObjectRecognitionViewController.latestCoordinates[index][3]) as NSNumber)
+
+        }
+
+    }
+    
+    func stopTimer() {
+        timer?.invalidate()
+        timer = nil
+    }
+    
     override func setupAVCapture() {
         super.setupAVCapture()
         
@@ -113,6 +240,12 @@ class VisionObjectRecognitionViewController: ViewController {
         setupLayers()
         updateLayerGeometry()
         setupVision()
+        setupTimer()
+        audioEngine.setupAudio()
+        
+//        fcrnLayer = fcrnView.layer
+//        fcrnLayer.addSublayer(drawingView.layer)
+        fcrnView.addSubview(drawingView)
         
         // start the capture
         startCaptureSession()
@@ -123,14 +256,18 @@ class VisionObjectRecognitionViewController: ViewController {
         detectionOverlay.name = "DetectionOverlay"
         detectionOverlay.bounds = CGRect(x: 0.0,
                                          y: 0.0,
-                                         width: bufferSize.width,
-                                         height: bufferSize.height)
-        detectionOverlay.position = CGPoint(x: rootLayer.bounds.midX, y: rootLayer.bounds.midY)
-        rootLayer.addSublayer(detectionOverlay)
+                                         width: yoloLayer.bounds.width,
+                                         height: yoloLayer.bounds.height)
+        detectionOverlay.position = CGPoint(x: yoloLayer.bounds.midX, y: yoloLayer.bounds.midY)
+        
+        yoloLayer.addSublayer(detectionOverlay)
+        
+//        fcrnLayer = fcrnView.layer
+//        fcrnLayer.addSublayer(drawingView.layer)
     }
     
     func updateLayerGeometry() {
-        let bounds = rootLayer.bounds
+        let bounds = yoloLayer.bounds
         var scale: CGFloat
         
         let xScale: CGFloat = bounds.size.width / bufferSize.height
@@ -180,4 +317,58 @@ class VisionObjectRecognitionViewController: ViewController {
         return shapeLayer
     }
     
+}
+
+extension ViewController {
+    func convertTo2DArray(from heatmaps: MLMultiArray) -> (Array<Array<Double>>, Array<Array<Int>>) {
+        guard heatmaps.shape.count >= 3 else {
+            print("heatmap's shape is invalid. \(heatmaps.shape)")
+            return ([], [])
+        }
+        let _/*keypoint_number*/ = heatmaps.shape[0].intValue
+        let heatmap_w = heatmaps.shape[1].intValue
+        let heatmap_h = heatmaps.shape[2].intValue
+        
+        var convertedHeatmap: Array<Array<Double>> = Array(repeating: Array(repeating: 0.0, count: heatmap_w), count: heatmap_h)
+        
+        var minimumValue: Double = Double.greatestFiniteMagnitude
+        var maximumValue: Double = -Double.greatestFiniteMagnitude
+        
+        for i in 0..<heatmap_w {
+            for j in 0..<heatmap_h {
+                let index = i*(heatmap_h) + j
+                let confidence = heatmaps[index].doubleValue
+                guard confidence > 0 else { continue }
+                convertedHeatmap[j][i] = confidence
+                
+                if minimumValue > confidence {
+                    minimumValue = confidence
+                }
+                if maximumValue < confidence {
+                    maximumValue = confidence
+                }
+            }
+        }
+        
+        let minmaxGap = maximumValue - minimumValue
+        
+        for i in 0..<heatmap_w {
+            for j in 0..<heatmap_h {
+                convertedHeatmap[j][i] = (convertedHeatmap[j][i] - minimumValue) / minmaxGap
+            }
+        }
+        
+        var convertedHeatmapInt: Array<Array<Int>> = Array(repeating: Array(repeating: 0, count: heatmap_w), count: heatmap_h)
+        for i in 0..<heatmap_w {
+            for j in 0..<heatmap_h {
+                if convertedHeatmap[j][i] >= 0.5 {
+                    convertedHeatmapInt[j][i] = Int(1)
+                } else {
+                    convertedHeatmapInt[j][i] = Int(0)
+                }
+            }
+        }
+        
+        return (convertedHeatmap,  convertedHeatmapInt)
+    }
 }
