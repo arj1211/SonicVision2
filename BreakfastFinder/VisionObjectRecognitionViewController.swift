@@ -14,6 +14,7 @@ let audioIDObjectMapping: [String:Int] = [
     "bottle" : 3,
     "chair"  : 4,
     "laptop" : 5,
+    "bed"    : 6
 ]
 
 class DrawingView: UIView {
@@ -155,13 +156,14 @@ class VisionObjectRecognitionViewController: ViewController {
             // Select only the label with the highest confidence.
             let topLabelObservation = objectObservation.labels[0]
             
-            var newBoundingBox = CGRect(x: objectObservation.boundingBox.midX, y: objectObservation.boundingBox.midY, width: objectObservation.boundingBox.width, height: objectObservation.boundingBox.height)
+            var newBoundingBox = CGRect(x: 1.0-objectObservation.boundingBox.maxX, y: objectObservation.boundingBox.minY, width: objectObservation.boundingBox.width*0.65, height: objectObservation.boundingBox.height*0.85)
+                        
+            let objectBounds = VNImageRectForNormalizedRect(newBoundingBox, Int(bufferSize.width), Int(bufferSize.height))
             
-            let objectBounds = VNImageRectForNormalizedRect(objectObservation.boundingBox, Int(bufferSize.width), Int(bufferSize.height))
             
             let width = bufferSize.width
             let height = bufferSize.height
-            let x = objectObservation.boundingBox.midX * 2 - 1.0
+            let x = (objectObservation.boundingBox.midX * 2 - 1.0) * -1
             let y = objectObservation.boundingBox.midY
             let normalizedX: Int = Int(x/width * 128)
             let normalizedY: Int = Int(y/height * 160)
@@ -225,11 +227,9 @@ class VisionObjectRecognitionViewController: ViewController {
     
     @objc func timerFired() {
         // This method will be called every 2 seconds
-        for (index, object) in VisionObjectRecognitionViewController.latestCoordinates.enumerated() {
+        for (index, _) in VisionObjectRecognitionViewController.latestCoordinates.enumerated() {
             audioEngine.addNodeAndPlay(with: VisionObjectRecognitionViewController.latestCoordinates[index][0], y: VisionObjectRecognitionViewController.latestCoordinates[index][1], z: VisionObjectRecognitionViewController.latestCoordinates[index][2], distance: VisionObjectRecognitionViewController.latestCoordinates[index][2], type: Int(VisionObjectRecognitionViewController.latestCoordinates[index][3]) as NSNumber)
-
         }
-
     }
     
     func stopTimer() {
@@ -247,10 +247,6 @@ class VisionObjectRecognitionViewController: ViewController {
         setupTimer()
         audioEngine.setupAudio()
         
-//        fcrnLayer = fcrnView.layer
-//        fcrnLayer.addSublayer(drawingView.layer)
-        fcrnView.addSubview(drawingView)
-        
         // start the capture
         startCaptureSession()
     }
@@ -260,18 +256,16 @@ class VisionObjectRecognitionViewController: ViewController {
         detectionOverlay.name = "DetectionOverlay"
         detectionOverlay.bounds = CGRect(x: 0.0,
                                          y: 0.0,
-                                         width: yoloLayer.bounds.width,
-                                         height: yoloLayer.bounds.height)
-        detectionOverlay.position = CGPoint(x: yoloLayer.bounds.midX, y: yoloLayer.bounds.midY)
+                                         width: bufferSize.width,
+                                         height: bufferSize.height)
+//        detectionOverlay.position = CGPoint(x: yoloLayer.bounds.midX, y: yoloLayer.bounds.midY)
+        detectionOverlay.position = CGPoint(x: rootLayer.bounds.midX, y: rootLayer.bounds.midY)
         
-        yoloLayer.addSublayer(detectionOverlay)
-        
-//        fcrnLayer = fcrnView.layer
-//        fcrnLayer.addSublayer(drawingView.layer)
+        rootLayer.addSublayer(detectionOverlay)
     }
     
     func updateLayerGeometry() {
-        let bounds = yoloLayer.bounds
+        let bounds = rootLayer.bounds
         var scale: CGFloat
         
         let xScale: CGFloat = bounds.size.width / bufferSize.height

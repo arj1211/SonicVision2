@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
@@ -17,46 +17,18 @@
                         <viewControllerLayoutGuide type="bottom" id="tP2-v6-g3K"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="CTO-i3-SOM">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c6e-WT-T2Y">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="332"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="375" id="Mtz-OH-vfh"/>
-                                    <constraint firstAttribute="height" constant="332" id="y9e-JB-HmJ"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fjx-43-kMo">
-                                <rect key="frame" x="0.0" y="332" width="375" height="335"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <rect key="contentStretch" x="0.0" y="0.0" width="1" height="0.5"/>
-                        <constraints>
-                            <constraint firstItem="fjx-43-kMo" firstAttribute="top" secondItem="c6e-WT-T2Y" secondAttribute="bottom" id="5ZX-eJ-eEJ"/>
-                            <constraint firstAttribute="bottom" secondItem="c6e-WT-T2Y" secondAttribute="bottom" constant="335" id="ADM-dn-jQE"/>
-                            <constraint firstAttribute="trailing" secondItem="fjx-43-kMo" secondAttribute="trailing" id="DnE-kK-ybv"/>
-                            <constraint firstItem="c6e-WT-T2Y" firstAttribute="top" secondItem="df9-3J-6We" secondAttribute="bottom" id="Dtz-wx-b0I"/>
-                            <constraint firstItem="fjx-43-kMo" firstAttribute="top" secondItem="c6e-WT-T2Y" secondAttribute="bottom" id="Gfp-JY-4fz"/>
-                            <constraint firstItem="fjx-43-kMo" firstAttribute="leading" secondItem="CTO-i3-SOM" secondAttribute="leading" id="Prz-As-lek"/>
-                            <constraint firstItem="c6e-WT-T2Y" firstAttribute="trailing" secondItem="fjx-43-kMo" secondAttribute="trailing" id="bIO-7h-AMQ"/>
-                            <constraint firstItem="tP2-v6-g3K" firstAttribute="top" secondItem="fjx-43-kMo" secondAttribute="bottom" id="d8X-1q-5Gs"/>
-                            <constraint firstItem="c6e-WT-T2Y" firstAttribute="leading" secondItem="CTO-i3-SOM" secondAttribute="leading" id="lwz-TJ-Jck"/>
-                            <constraint firstItem="fjx-43-kMo" firstAttribute="top" secondItem="c6e-WT-T2Y" secondAttribute="bottom" id="z6i-Ry-xxv"/>
-                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="fcrnView" destination="fjx-43-kMo" id="wk0-Li-VUD"/>
                         <outlet property="previewView" destination="CTO-i3-SOM" id="yHp-HC-7lo"/>
-                        <outlet property="yoloView" destination="c6e-WT-T2Y" id="ORl-v8-glF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="56.799999999999997" y="-0.44977511244377816"/>
+            <point key="canvasLocation" x="55.813953488372093" y="-0.64377682403433478"/>
         </scene>
     </scenes>
     <resources>

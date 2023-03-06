@@ -22,6 +22,7 @@
     @property (nonatomic, strong) AVAudioFile *chairSound;
     @property (nonatomic, strong) AVAudioFile *bottleSound;
     @property (nonatomic, strong) AVAudioFile *laptopSound;
+    @property (nonatomic, strong) AVAudioFile *bedSound;
 
 @end
 
@@ -37,7 +38,7 @@
     AVAudioFile* audioFileToPlay = _hornSound;
     switch (type.intValue) {
         case 1:
-            audioFileToPlay = _hornSound;
+            audioFileToPlay = _laptopSound;
             break;
         case 2:
             audioFileToPlay = _personSound;
@@ -51,8 +52,11 @@
         case 5:
             audioFileToPlay = _laptopSound;
             break;
+        case 6:
+            audioFileToPlay = _bedSound;
+            break;
         default:
-            audioFileToPlay = _hornSound;
+            audioFileToPlay = _laptopSound;
     }
     
     [newNode scheduleFile:audioFileToPlay atTime:nil completionHandler:nil];
@@ -117,6 +121,9 @@
 
     audioFileURL = [[NSBundle mainBundle] URLForResource:@"chair-same-vol" withExtension:@"wav"];
     self.chairSound = [[AVAudioFile alloc] initForReading:audioFileURL error:nil];
+    
+    audioFileURL = [[NSBundle mainBundle] URLForResource:@"bed" withExtension:@"wav"];
+    self.bedSound = [[AVAudioFile alloc] initForReading:audioFileURL error:nil];
 
     
     // 7. Schedule the audio file to play

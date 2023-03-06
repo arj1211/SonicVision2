@@ -20,10 +20,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     private let session = AVCaptureSession()
     private var previewLayer: AVCaptureVideoPreviewLayer! = nil
     private let videoDataOutput = AVCaptureVideoDataOutput()
-    
-    @IBOutlet weak var yoloView: UIView!
-    @IBOutlet weak var fcrnView: UIView!
-    
+        
     private let videoDataOutputQueue = DispatchQueue(label: "VideoDataOutput", qos: .userInitiated, attributes: [], autoreleaseFrequency: .workItem)
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
@@ -47,7 +44,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         let videoDevice = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .back).devices.first
 
         if #available(iOS 13.0, *) {
-            let videoDevice = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInUltraWideCamera], mediaType: .video, position: .back).devices.first
+            let videoDevice = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .back).devices.first
         }
         
         do {
@@ -92,11 +89,10 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         }
         session.commitConfiguration()
         previewLayer = AVCaptureVideoPreviewLayer(session: session)
-        previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        
-        yoloLayer = yoloView.layer
-        previewLayer.frame = yoloLayer.bounds
-        yoloLayer.addSublayer(previewLayer)
+        previewLayer.videoGravity = AVLayerVideoGravity.resizeAspect
+        rootLayer = previewView.layer
+        previewLayer.frame = rootLayer.bounds
+        rootLayer.addSublayer(previewLayer)
     }
     
     func startCaptureSession() {

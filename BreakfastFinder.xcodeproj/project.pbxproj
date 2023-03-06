@@ -19,6 +19,7 @@
 		BDC12A1629B551D600BC7E24 /* laptop-same-vol.wav in Resources */ = {isa = PBXBuildFile; fileRef = BDC12A1229B551D600BC7E24 /* laptop-same-vol.wav */; };
 		BDC12A1729B551D600BC7E24 /* bottole-same-vol.wav in Resources */ = {isa = PBXBuildFile; fileRef = BDC12A1329B551D600BC7E24 /* bottole-same-vol.wav */; };
 		BDC12A1829B551D600BC7E24 /* chair-same-vol.wav in Resources */ = {isa = PBXBuildFile; fileRef = BDC12A1429B551D600BC7E24 /* chair-same-vol.wav */; };
+		BDC12A1C29B565A400BC7E24 /* bed.wav in Resources */ = {isa = PBXBuildFile; fileRef = BDC12A1B29B565A400BC7E24 /* bed.wav */; };
 		FA4750CA20BF3F48003E19ED /* Breakfast Finder Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = FA4750C920BF3F48003E19ED /* Breakfast Finder Logo.png */; };
 		FAB417F62099308400494E9C /* VisionObjectRecognitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB417F52099308400494E9C /* VisionObjectRecognitionViewController.swift */; };
 		FAD5009F1ED668B60074D713 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD5009E1ED668B60074D713 /* AppDelegate.swift */; };
@@ -44,6 +45,7 @@
 		BDC12A1229B551D600BC7E24 /* laptop-same-vol.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "laptop-same-vol.wav"; sourceTree = "<group>"; };
 		BDC12A1329B551D600BC7E24 /* bottole-same-vol.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "bottole-same-vol.wav"; sourceTree = "<group>"; };
 		BDC12A1429B551D600BC7E24 /* chair-same-vol.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "chair-same-vol.wav"; sourceTree = "<group>"; };
+		BDC12A1B29B565A400BC7E24 /* bed.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bed.wav; sourceTree = "<group>"; };
 		C2A2AB60C2A2AB2000000001 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E3CB966204CD821C6969C2A3 /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		FA4750C920BF3F48003E19ED /* Breakfast Finder Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Breakfast Finder Logo.png"; sourceTree = SOURCE_ROOT; };
@@ -116,6 +118,7 @@
 				BDC12A0629B4F92B00BC7E24 /* AudioManager.h */,
 				BDC12A0C29B5142D00BC7E24 /* bottle.wav */,
 				BDC12A0B29B5142D00BC7E24 /* chair.wav */,
+				BDC12A1B29B565A400BC7E24 /* bed.wav */,
 				BDC12A0D29B5142D00BC7E24 /* laptop.wav */,
 				FAB417F52099308400494E9C /* VisionObjectRecognitionViewController.swift */,
 				BDC12A0729B4FB0E00BC7E24 /* mixkit-clown-horn-at-circus-715.wav */,
@@ -194,6 +197,7 @@
 			files = (
 				BDC12A0F29B5142D00BC7E24 /* bottle.wav in Resources */,
 				BDC12A1529B551D600BC7E24 /* person-same-vol.wav in Resources */,
+				BDC12A1C29B565A400BC7E24 /* bed.wav in Resources */,
 				BDC12A0E29B5142D00BC7E24 /* chair.wav in Resources */,
 				BDC12A1029B5142D00BC7E24 /* laptop.wav in Resources */,
 				BDC12A0829B4FB0E00BC7E24 /* mixkit-clown-horn-at-circus-715.wav in Resources */,
@@ -373,6 +377,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RP57F6D6D2;
 				INFOPLIST_FILE = BreakfastFinder/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.BreakfastFinder${SAMPLE_CODE_DISAMBIGUATOR}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -394,6 +399,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RP57F6D6D2;
 				INFOPLIST_FILE = BreakfastFinder/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.BreakfastFinder${SAMPLE_CODE_DISAMBIGUATOR}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
