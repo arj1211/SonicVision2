@@ -75,6 +75,8 @@ class VisionObjectRecognitionViewController: ViewController {
     var timer: Timer?
     
     static var latestCoordinates: [[Float32]] = []
+    static var latestTotalItems: Int = 0
+    static var latestItemLabelsStr: String = ""
 
     var drawingView: DrawingView = {
        let map = DrawingView()
@@ -147,8 +149,9 @@ class VisionObjectRecognitionViewController: ViewController {
         CATransaction.begin()
         CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
         detectionOverlay.sublayers = nil // remove all the old recognized objects
-        
+        VisionObjectRecognitionViewController.latestTotalItems = 0
         VisionObjectRecognitionViewController.latestCoordinates = []
+        VisionObjectRecognitionViewController.latestItemLabelsStr = ""
         for observation in results where observation is VNRecognizedObjectObservation {
             guard let objectObservation = observation as? VNRecognizedObjectObservation else {
                 continue
@@ -157,7 +160,7 @@ class VisionObjectRecognitionViewController: ViewController {
             let topLabelObservation = objectObservation.labels[0]
             
             var newBoundingBox = CGRect(x: 1.0-objectObservation.boundingBox.maxX, y: objectObservation.boundingBox.minY, width: objectObservation.boundingBox.width*0.65, height: objectObservation.boundingBox.height*0.85)
-                        
+            
             let objectBounds = VNImageRectForNormalizedRect(newBoundingBox, Int(bufferSize.width), Int(bufferSize.height))
             
             
@@ -181,6 +184,8 @@ class VisionObjectRecognitionViewController: ViewController {
                 print("area of box: \(areaOfBox)")
             }
             
+           // let areaOfBox =
+            
             let objectSound = audioIDObjectMapping[topLabelObservation.identifier, default: 1]
             
             let newObjectCoords = [Float32(x),
@@ -189,6 +194,15 @@ class VisionObjectRecognitionViewController: ViewController {
              Float32(objectSound)]
 
             VisionObjectRecognitionViewController.latestCoordinates.append(newObjectCoords)
+            
+            VisionObjectRecognitionViewController.latestTotalItems+=1
+            //print(topLabelObservation.identifier)
+            //print(type (of: topLabelObservation.identifier))
+            VisionObjectRecognitionViewController.latestItemLabelsStr+=topLabelObservation.identifier
+            VisionObjectRecognitionViewController.latestItemLabelsStr+=", "
+        
+            //print(VisionObjectRecognitionViewController.latestItemLabels)
+            
             
 //            print("Detected Object: \(topLabelObservation.identifier)")
 //            print("midX: \(objectObservation.boundingBox.midX)")
@@ -258,7 +272,6 @@ class VisionObjectRecognitionViewController: ViewController {
                                          y: 0.0,
                                          width: bufferSize.width,
                                          height: bufferSize.height)
-//        detectionOverlay.position = CGPoint(x: yoloLayer.bounds.midX, y: yoloLayer.bounds.midY)
         detectionOverlay.position = CGPoint(x: rootLayer.bounds.midX, y: rootLayer.bounds.midY)
         
         rootLayer.addSublayer(detectionOverlay)

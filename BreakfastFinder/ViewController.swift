@@ -8,8 +8,13 @@ Contains the view controller for the Breakfast Finder.
 import UIKit
 import AVFoundation
 import Vision
+import CoreLocation
+import Firebase
 
-class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
+class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, CLLocationManagerDelegate {
+    
+    let locationManager = CLLocationManager();
+    var databaseRef: DatabaseReference!
     
     var bufferSize: CGSize = .zero
     var rootLayer: CALayer! = nil
@@ -30,11 +35,46 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAVCapture()
+        setupLocationTracking()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func setupLocationTracking() {
+        // Configure Firebase
+        FirebaseApp.configure()
+        databaseRef = Database.database().reference()
+        // Request authorization to access the user's location
+        locationManager.requestWhenInUseAuthorization()
+        
+        // Set the delegate of the location manager to self
+        locationManager.delegate = self
+        
+        // Start location updates
+        locationManager.startUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("is this called\n")
+        // Get the user's current location
+        guard let location = locations.last else {
+            return
+        }
+        print(VisionObjectRecognitionViewController.latestItemLabelsStr)
+        // Create a dictionary to store the location data
+        let locationData: [String: Any] = [
+            "latitude": location.coordinate.latitude,
+            "longitude": location.coordinate.longitude,
+            "timestamp": Date().timeIntervalSince1970,
+            "number of objects": VisionObjectRecognitionViewController.latestTotalItems,
+            "items found": VisionObjectRecognitionViewController.latestItemLabelsStr
+        ]
+        
+        // Write the location data to the Firebase Realtime Database
+        databaseRef.child("locations").childByAutoId().setValue(locationData)
     }
     
     func setupAVCapture() {

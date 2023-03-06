@@ -3,12 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		6E0B61E929B401D80079FE56 /* ObjectDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 6E0B61E829B401D80079FE56 /* ObjectDetector.mlmodel */; };
 		6E0B61EB29B40FBD0079FE56 /* FCRN.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 6E0B61EA29B40FBD0079FE56 /* FCRN.mlmodel */; };
+		A463B6FD29B570C5007046CB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A463B6FC29B570C5007046CB /* GoogleService-Info.plist */; };
+		A463B70029B5739B007046CB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A463B6FF29B5739B007046CB /* FirebaseAuth */; };
+		A463B70229B5739B007046CB /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = A463B70129B5739B007046CB /* FirebaseDatabase */; };
 		BDC12A0529B4F8EC00BC7E24 /* AudioEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = BDC12A0429B4F8EC00BC7E24 /* AudioEngine.m */; };
 		BDC12A0829B4FB0E00BC7E24 /* mixkit-clown-horn-at-circus-715.wav in Resources */ = {isa = PBXBuildFile; fileRef = BDC12A0729B4FB0E00BC7E24 /* mixkit-clown-horn-at-circus-715.wav */; };
 		BDC12A0A29B50F5A00BC7E24 /* person.wav in Resources */ = {isa = PBXBuildFile; fileRef = BDC12A0929B50F5A00BC7E24 /* person.wav */; };
@@ -33,6 +36,7 @@
 		6E0B61E829B401D80079FE56 /* ObjectDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = ObjectDetector.mlmodel; sourceTree = "<group>"; };
 		6E0B61EA29B40FBD0079FE56 /* FCRN.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = FCRN.mlmodel; sourceTree = "<group>"; };
 		7984D3D3A63BDFC4A07FEF8F /* SampleCode.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
+		A463B6FC29B570C5007046CB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BDC12A0329B4F8EC00BC7E24 /* BreakfastFinder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BreakfastFinder-Bridging-Header.h"; sourceTree = "<group>"; };
 		BDC12A0429B4F8EC00BC7E24 /* AudioEngine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioEngine.m; sourceTree = "<group>"; };
 		BDC12A0629B4F92B00BC7E24 /* AudioManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioManager.h; sourceTree = "<group>"; };
@@ -64,6 +68,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A463B70229B5739B007046CB /* FirebaseDatabase in Frameworks */,
+				A463B70029B5739B007046CB /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +114,7 @@
 		FAD5009D1ED668B60074D713 /* BreakfastFinder */ = {
 			isa = PBXGroup;
 			children = (
+				A463B6FC29B570C5007046CB /* GoogleService-Info.plist */,
 				BDC12A1329B551D600BC7E24 /* bottole-same-vol.wav */,
 				BDC12A1429B551D600BC7E24 /* chair-same-vol.wav */,
 				BDC12A1229B551D600BC7E24 /* laptop-same-vol.wav */,
@@ -151,6 +158,10 @@
 			dependencies = (
 			);
 			name = BreakfastFinder;
+			packageProductDependencies = (
+				A463B6FF29B5739B007046CB /* FirebaseAuth */,
+				A463B70129B5739B007046CB /* FirebaseDatabase */,
+			);
 			productName = "VisionCamObjectRecognition-Swift";
 			productReference = FAD5009B1ED668B60074D713 /* BreakfastFinder.app */;
 			productType = "com.apple.product-type.application";
@@ -181,6 +192,9 @@
 				Base,
 			);
 			mainGroup = FAD500921ED668B60074D713;
+			packageReferences = (
+				A463B6FE29B5739B007046CB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = FAD5009C1ED668B60074D713 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -209,6 +223,7 @@
 				FAD500A61ED668B60074D713 /* Assets.xcassets in Resources */,
 				BDC12A1629B551D600BC7E24 /* laptop-same-vol.wav in Resources */,
 				FAD500A41ED668B60074D713 /* Main.storyboard in Resources */,
+				A463B6FD29B570C5007046CB /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,7 +376,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 4.2;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -432,6 +448,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A463B6FE29B5739B007046CB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A463B6FF29B5739B007046CB /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A463B6FE29B5739B007046CB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		A463B70129B5739B007046CB /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A463B6FE29B5739B007046CB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FAD500931ED668B60074D713 /* Project object */;
 }
