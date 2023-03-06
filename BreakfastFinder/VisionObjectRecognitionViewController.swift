@@ -74,6 +74,8 @@ class VisionObjectRecognitionViewController: ViewController {
     var timer: Timer?
     
     static var latestCoordinates: [[Float32]] = []
+    static var latestTotalItems: Int = 0
+    static var latestItemLabelsStr: String = ""
 
     var drawingView: DrawingView = {
        let map = DrawingView()
@@ -146,8 +148,9 @@ class VisionObjectRecognitionViewController: ViewController {
         CATransaction.begin()
         CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
         detectionOverlay.sublayers = nil // remove all the old recognized objects
-        
+        VisionObjectRecognitionViewController.latestTotalItems = 0
         VisionObjectRecognitionViewController.latestCoordinates = []
+        VisionObjectRecognitionViewController.latestItemLabelsStr = ""
         for observation in results where observation is VNRecognizedObjectObservation {
             guard let objectObservation = observation as? VNRecognizedObjectObservation else {
                 continue
@@ -185,6 +188,15 @@ class VisionObjectRecognitionViewController: ViewController {
              Float32(objectSound)]
 
             VisionObjectRecognitionViewController.latestCoordinates.append(newObjectCoords)
+            
+            VisionObjectRecognitionViewController.latestTotalItems+=1
+            //print(topLabelObservation.identifier)
+            //print(type (of: topLabelObservation.identifier))
+            VisionObjectRecognitionViewController.latestItemLabelsStr+=topLabelObservation.identifier
+            VisionObjectRecognitionViewController.latestItemLabelsStr+=", "
+        
+            //print(VisionObjectRecognitionViewController.latestItemLabels)
+            
             
 //            print("Detected Object: \(topLabelObservation.identifier)")
 //            print("midX: \(objectObservation.boundingBox.midX)")
