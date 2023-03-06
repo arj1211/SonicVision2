@@ -178,7 +178,7 @@ class VisionObjectRecognitionViewController: ViewController {
                 print("midY: \(y)")
             }
             
-            let areaOfBox = 
+           // let areaOfBox =
             
             let objectSound = audioIDObjectMapping[topLabelObservation.identifier, default: 1]
             
