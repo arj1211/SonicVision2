@@ -159,10 +159,9 @@ class VisionObjectRecognitionViewController: ViewController {
             // Select only the label with the highest confidence.
             let topLabelObservation = objectObservation.labels[0]
             
-            var newBoundingBox = CGRect(x: 1.0-objectObservation.boundingBox.maxX, y: objectObservation.boundingBox.minY, width: objectObservation.boundingBox.width*0.65, height: objectObservation.boundingBox.height*0.85)
+            let newBoundingBox = CGRect(x: 1.0-objectObservation.boundingBox.maxX, y: objectObservation.boundingBox.minY, width: objectObservation.boundingBox.width*0.65, height: objectObservation.boundingBox.height*0.85)
             
             let objectBounds = VNImageRectForNormalizedRect(newBoundingBox, Int(bufferSize.width), Int(bufferSize.height))
-            
             
             let width = bufferSize.width
             let height = bufferSize.height
@@ -188,9 +187,11 @@ class VisionObjectRecognitionViewController: ViewController {
             
             let objectSound = audioIDObjectMapping[topLabelObservation.identifier, default: 1]
             
+//            let volumeScalar: Float32 = Float32((settingsMap2["volume"] ?? 100)/100)
+            
             let newObjectCoords = [Float32(x),
              Float32(y),
-             Float32(areaOfBox/0.2),
+                                   Float32((Float(areaOfBox)/0.2)),
              Float32(objectSound)]
 
             VisionObjectRecognitionViewController.latestCoordinates.append(newObjectCoords)

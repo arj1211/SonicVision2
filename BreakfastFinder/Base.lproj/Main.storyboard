@@ -31,19 +31,19 @@
             </objects>
             <point key="canvasLocation" x="-1585" y="113"/>
         </scene>
-        <!--View Controller-->
+        <!--Settings View Controller-->
         <scene sceneID="sBU-9X-Ukn">
             <objects>
-                <viewController id="NgI-bO-Hr9" sceneMemberID="viewController">
+                <viewController id="NgI-bO-Hr9" customClass="SettingsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mII-Hu-ZbP">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BJx-aI-zO1">
-                                <rect key="frame" x="30" y="109" width="370" height="728.33333333333337"/>
+                                <rect key="frame" x="30" y="109" width="708.66666666666663" height="728.33333333333337"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="42" translatesAutoresizingMaskIntoConstraints="NO" id="IOO-vy-f1w">
-                                        <rect key="frame" x="0.0" y="0.0" width="370" height="40.333333333333336"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="708.66666666666663" height="40.333333333333336"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="lXH-eP-ceu">
                                                 <rect key="frame" x="0.0" y="0.0" width="118.66666666666667" height="40.333333333333336"/>
@@ -74,7 +74,7 @@
                                         </constraints>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="chT-Db-OqR">
-                                        <rect key="frame" x="0.0" y="40.333333333333343" width="370" height="100"/>
+                                        <rect key="frame" x="0.0" y="40.333333333333343" width="708.66666666666663" height="100"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="aA6-aa-7Mm"/>
                                         </constraints>
@@ -90,17 +90,17 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P24-r3-4gU">
-                                        <rect key="frame" x="0.0" y="140.33333333333337" width="370" height="400"/>
+                                        <rect key="frame" x="0.0" y="140.33333333333337" width="708.66666666666663" height="400"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="400" id="5P9-13-ha7"/>
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="sQj-ud-P5M">
-                                        <rect key="frame" x="0.0" y="540.33333333333337" width="370" height="188"/>
+                                        <rect key="frame" x="0.0" y="540.33333333333337" width="708.66666666666663" height="188"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="YHp-ge-e0c">
-                                                <rect key="frame" x="0.0" y="0.0" width="370" height="188"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="708.66666666666663" height="188"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="-5" translatesAutoresizingMaskIntoConstraints="NO" id="bGM-LP-sz4">
                                                         <rect key="frame" x="0.0" y="0.0" width="149.33333333333334" height="32"/>
@@ -190,10 +190,10 @@
             </objects>
             <point key="canvasLocation" x="-657.25190839694653" y="104.92957746478874"/>
         </scene>
-        <!--View Controller-->
+        <!--Settings View Controller-->
         <scene sceneID="l0b-CE-fAm">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="KuC-1C-lnL" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="KuC-1C-lnL" customClass="SettingsViewController" customModule="BreakfastFinder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ElT-Fu-B7t">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="863"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -233,7 +233,7 @@
                                                             </label>
                                                         </subviews>
                                                     </stackView>
-                                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="vAP-Ef-BXw">
+                                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" value="100" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="vAP-Ef-BXw">
                                                         <rect key="frame" x="-2" y="87.333333333333343" width="374" height="31"/>
                                                     </slider>
                                                 </subviews>
@@ -487,6 +487,9 @@
                                         <rect key="frame" x="0.0" y="664.33333333333337" width="370" height="50.333333333333371"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Save Changes" buttonSize="large"/>
+                                        <connections>
+                                            <action selector="saveChangesButton:" destination="KuC-1C-lnL" eventType="touchUpInside" id="RjA-dq-6sG"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -502,6 +505,19 @@
                             <constraint firstItem="ajS-By-3NG" firstAttribute="top" secondItem="ZU8-IF-tqh" secondAttribute="top" constant="50" id="t4F-Ly-UMT"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="bedSoundTextField" destination="orz-fx-hdj" id="28B-7b-AVB"/>
+                        <outlet property="bottleSoundTextField" destination="xLc-Uj-exz" id="k4Z-Hk-ds9"/>
+                        <outlet property="chairSoundTextField" destination="2Hr-1h-NIH" id="hTe-We-HW6"/>
+                        <outlet property="defaultSoundTextField" destination="7Ol-4d-ixA" id="xeq-CF-xIH"/>
+                        <outlet property="enableLocationHistorySwitch" destination="JoR-vo-pHj" id="tof-2Y-7MI"/>
+                        <outlet property="enableVoiceOverSwitch" destination="fF9-9S-dVK" id="zug-DW-Chc"/>
+                        <outlet property="objectDistanceScaleTextField" destination="5qh-2W-GdE" id="pcI-MU-Yo4"/>
+                        <outlet property="personSoundTextField" destination="oHE-Sr-LEr" id="aBb-aa-7ej"/>
+                        <outlet property="tableSoundTextField" destination="AcN-89-1L5" id="f8R-wn-FBG"/>
+                        <outlet property="volumeLabel" destination="bqe-cZ-bTx" id="4j3-Xb-Aru"/>
+                        <outlet property="volumeSlider" destination="vAP-Ef-BXw" id="fVn-1h-pkx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1bI-Ye-qgr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
